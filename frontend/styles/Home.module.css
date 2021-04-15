@@ -14,6 +14,26 @@
     border: 2px solid rgba(0, 0, 0, 0.18) !important;
 
 }
+.image{
+    border-radius: 20px;
+    margin-left: -10%;
+    margin-top: -5%;
+    position: absolute;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.30);
+}
+.list{
+    background-color: #FFFFFF;
+    width: 700px;
+    height: 250px;
+    margin: 1%;
+    padding: auto;
+    padding-top: 7%;
+    padding-left: 14%;
+    border-radius: 1.5em;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.30);
+    align-items: center;
+    font-family: 'Ubuntu', sans-serif;
+}
 .un {
     width: 76%;
     color: rgb(38, 50, 56);
@@ -34,13 +54,108 @@
     font-family: 'Ubuntu', sans-serif;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.15);
     }
+    .unhome {
+        width: auto;
+        color: rgb(38, 50, 56);
+        font-weight: auto;
+        font-size: 16px;
+        letter-spacing: 1px;
+        background: rgba(136, 126, 126, 0.04);
+        border: none;
+        border-radius: 20px;
+        outline: none;
+        padding: auto;
+        padding-right: 5%;
+        padding-top: 2%;
+        box-sizing: border-box;
+        border: 2px solid rgba(0, 0, 0, 0.02);
+        text-align: center;
+        margin-bottom: 27px;
+        font-family: 'Ubuntu', sans-serif;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.15);
+        }
 .register {
         text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
         color: #E1BEE7;
         padding-top: 15px;
 }
-
+.submitback {
+    
+    margin-bottom: 15px;
+    border-radius: 2em;
+    color: #ffffff;
+      border: 0;
+      padding-left: 140px;
+      padding-right: 140px;
+      padding-bottom: 20px;
+      padding-top: 10px;
+      font-family: 'Ubuntu', sans-serif;
+      margin-left: 3%;
+      font-size: 20px;
+      background: linear-gradient(to bottom right, #68EACC 0%, #497BE8 100%);
+      box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+ }
+ .submitback:hover {
+    background: linear-gradient(to bottom right, #1ca384 0%, #497BE8 100%);
+}
+.submitadmin2 {
+    
+    margin-bottom: 10px;
+    border-radius: 2em;
+    color: #ffffff;
+      border: 0;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      font-family: 'Ubuntu', sans-serif;
+      
+      margin-left: 91%;
+      font-size: 16px;
+      background: linear-gradient(to bottom right, #68EACC 0%, #497BE8 100%);
+      box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+ }
+ .submitmycart {
+    
+    margin-bottom: 10px;
+    border-radius: 2em;
+    color: #ffffff;
+      border: 0;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      font-family: 'Ubuntu', sans-serif;
+      margin-left: 75%;
+      font-size: 16px;
+      background: linear-gradient(to bottom right, #68EACC 0%, #497BE8 100%);
+      box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+ }
+.submitadmin {
+    
+    margin-bottom: 10px;
+    border-radius: 2em;
+    color: #ffffff;
+      border: 0;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      font-family: 'Ubuntu', sans-serif;
+      
+      margin-left: 91%;
+      font-size: 16px;
+      background: linear-gradient(to bottom right, #68EACC 0%, #497BE8 100%);
+      box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+ }
+ .submitadmin:hover {
+    background: linear-gradient(to bottom right, #1ca384 0%, #497BE8 100%);
+}
+.submitadmin2:hover {
+    background: linear-gradient(to bottom right, #1ca384 0%, #497BE8 100%);
+}
 .submit {
+    
     margin-bottom: 15px;
     border-radius: 2em;
     color: #ffffff;
@@ -62,17 +177,28 @@
 	position:relative;
 	top:1.5px;
 }
-
+.submit:disabled {
+	background: linear-gradient(to bottom right, #226959 0%, #355cb1 100%);
+}
 .formloging{
     padding-top: 40px;
 }
 .backg{
-    min-height: 100vh;
+    min-height: 1000px;
     padding: 0 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100vh;
+    height: auto;
+    background: linear-gradient(to bottom right, #68EACC 0%, #497BE8 100%);
+}
+.backghome{
+    min-height: auto;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
     background: linear-gradient(to bottom right, #68EACC 0%, #497BE8 100%);
 }
 .sign {
@@ -84,6 +210,35 @@
     font-size: 40px;
     
 }
+.sign2 {
+    padding-top: 40px;
+    text-align:"center";
+    color: #29b5ce;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 60px;
+    
+}
+.signhome {
+    padding-top: 40px;
+    text-align:"center";
+    color: #29b5ce;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    margin: auto;
+}
+.signcost {
+    
+    
+    color: #29b5ce;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    
+}
+
+
 .main{
     background-color: #FFFFFF;
     width: 650px;
@@ -108,9 +263,21 @@
     height: 1700px;
     margin: 7em auto;
     border-radius: 1.5em;
-   
+    padding: 0 0.5rem;
+    
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.30);
 }
+.mainadd{
+    background-color: #FFFFFF;
+    width: 750px;
+    height: 700px;
+    margin: 7em auto;
+    border-radius: 1.5em;
+    padding: 0 0.5rem;
+    
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.30);
+}
+
 
 .conlogin{
         position: absolute;
@@ -142,25 +309,6 @@
   width: 298px;
 background-color: rgba(69, 105, 144, 1);
 
-}
-.loginbutton{
-    cursor: pointer;
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-}
-.h2 {
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    display:inline-block;
-    margin: 40px 8px 10px 8px; 
-    color: #cccccc;
-  }
-  
-.content {
-    min-width: 25vw;
 }
 
 .gridContainer {

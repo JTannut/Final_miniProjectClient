@@ -100,7 +100,7 @@ export default function Register({ token }) {
                 <div align="center" >
                     <button className={styles.submit} onClick={register}>Register</button>
                     
-                    <Link href="/"><button className={styles.submit}>Back to Login</button></Link>
+                    <Link href="/admin"><button className={styles.submit}>Back to Login</button></Link>
                 </div>
                 
             </div>

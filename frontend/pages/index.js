@@ -1,96 +1,139 @@
 import Head from 'next/head'
 import Layout from '../components/layout'
-import { useState } from 'react'
 import Navbar from '../components/navbar'
+import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import axios from 'axios'
+import withAuth from '../components/withAuth'
 import config from '../config/config'
+import useSWR, { mutate } from 'swr'
+import Image from 'next/image'
 import Link from 'next/link'
+const URL = `http://localhost/api/product`
+const fetcher = (URL) => axios.get(URL).then(res => res.data)
 
-export default function Login({ token }) {
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [status, setStatus] = useState('')
-    const [tick, setTick] = useState('')
+const product = ({ token }) => {
 
-  
-    const login = async (req, res) => {
-        
-        try {
-            let result = await axios.post(`${config.URL}/login`,
-                { username, password },
-                { withCredentials: true })
-            console.log('result: ', result)
-            console.log('result.data:  ', result.data)
-            console.log('token:  ', token)
-            setStatus(result.status + ': ' + result.data.user.username)
-        }
-        catch (e) {
-            console.log('error: ', JSON.stringify(e.response))
-            setStatus(JSON.stringify(e.response).substring(0, 80) + "...")
+    const [admin, setAdmin] = useState({})
+    const [product, setProduct] = useState('')
+    const [name, setName] = useState('')
+    const [cost, setCost] = useState('')
+
+   
+    const { data, error } = useSWR(URL, fetcher)
+    if (!data) return <div>Loading...</div>
+    console.log('Home', data);
+
+    const printproduct = (product) => {
+        console.log('product: ', product);
+        if (product && product.length)
+            return (product.map((product, index) =>
+            
+            (
+            <div className={styles.list}>
+                <div key={index}>
+                    <div className={styles.image}>
+                        
+                        <Image 
+                className={styles.image}
+                        src="/1.png"
+                        alt=""
+                        width={200}
+                         height={200}
+                         />
+                    </div>
+                <div className={styles.signcost}>
+                     <div>{(product) ? product.name : ''} {''}
+                          ราคา {''}
+                         {(product) ? product.cost : '-'} </div>
+                </div>
+               <p>{''}</p>
+                 </div>
+
+                 <button className={styles.submit} onClick={() => getproduct(product.id)}>Add to cart</button>
+                </div>)
+
+            ))
+        else 
+        {
+            (<h2>No product</h2>)
         }
     }
+    const getproduct = async (id) => {
+        
+        let product = await axios.get(`${URL}/${id}`);
+        let count = 0;
+        setProduct({
+            
+            name: product.data.name,
+            cost: product.data.cost,
+            count: count++,
+        });
+    }
 
-    const loginForm = () => (
-        <div className={styles.formloging}>
-            <div>
-                
-                <input className={styles.un}
-                
-                    type="text"
-                    name="username"
-                    placeholder="username"
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </div>
-            <div>
-                <input className={styles.un}
-                type="password"
-                    name="password"
-                    placeholder="password"
-                    onChange={(e) => setPassword(e.target.value)} />
-            </div>
-        </div>
-    )
+    const addproduct = async (name, cost) => {
 
-    const copyText = () => {
-    navigator.clipboard.writeText(token)
+        let product = await axios.post(URL, { name, cost },{
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        //setproduct(product.data)
+        mutate(URL)
+        
+    }
+
+    const deleteproduct = async (id) => {
+
+        let product = await axios.delete(`${URL}/${id}`,{
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        //setproduct(product.data)
+        mutate(URL)
+    }
+
+    const updateproduct = async (id) => {
+
+        let product = await axios.put(`${URL}/${id}`, { name, cost})
+        //setproduct(product.data)
+        mutate(URL)
     }
 
     return (
-        <Layout >
+        <Layout>
+            
             <Head>
-             <title>Login</title>
-            </Head><div className={styles.backg}>
-                <div className={styles.main}>
-                <h1 className={styles.sign} align="center">SIGN IN</h1>
+                <title>เครื่องดื่ม</title>
+            </Head><div className={styles.backghome}>
+                
+                <div className={styles.mainhome} align="center" >
+                <p>{''}</p>
+                <Link href="/admin"><button className={styles.submitadmin2}>ADMIN</button></Link>
+                <Link href="/mycart"><button className={styles.submitadmin}>MY CART</button></Link>
+                <h1 className={styles.sign2}>เครื่องดื่ม</h1>
                 <p align="center">
-                 <p><b>Token:</b> {token.substring(0, 15)}...
-                 <button onClick={copyText}> Copy token </button>
+                    <div >
+                        
+                        {product.name} {product.cost}{product.count}
+                    </div>
+                    
                 </p>
-                <br/>
-                {status}
-                <br />
-                {loginForm()}
-                <p>
-                <input name="tick" type="checkbox" 
-                onChange={ (e) => setTick(e.target.value)}></input>
-                    Increase expires 7 days
-                </p>
-                </p>
-                <div align="center">
-                <button className={styles.submit} onClick={login}>Login</button>
-                <Link href="/register"><button className={styles.submit}>Register</button></Link>
-                <Link href="/home"><button className={styles.submit}>HOME</button></Link>
+                
+                <div >
+                {printproduct(data.list)}
+                   
                 </div>
-                 </div>
-                 <Navbar />
+            </div>
+            <p>
+                <Navbar />
+            </p>
+            
             </div>
             
         </Layout>
     )
 }
+
+export default product
 
 export function getServerSideProps({ req, res }) {
     return { props: { token: req.cookies.token || "" } };

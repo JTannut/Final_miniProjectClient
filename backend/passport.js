@@ -1,5 +1,5 @@
 const db = require('./database.js');
-let users = db.users
+let admin = db.admin
 
 const passport = require('passport')
 const bcrypt = require('bcrypt')
@@ -17,7 +17,7 @@ passport.use(
         console.log('User: ', username, password)
         const index = db.checkExistingUser(username)
         if (index !== db.NOT_FOUND && await db.isValidUser(username, password)) {
-            const { id, username, email } = users.users[index]
+            const { id, username, email } = admin.admin[index]
             return cb(null,
                 { id, username, email },
                 { message: 'Logged In Successfully' })
@@ -40,7 +40,7 @@ passport.use(
                 const index = db.checkExistingUser(jwtPayload.username)
                 if (index !== db.NOT_FOUND) {
                     // Strip password out
-                    const { id, username, email } = users.users[index]
+                    const { id, username, email } = admin.admin[index]
                                     //Return to caller via req.user
                     return cb(null, { id, username, email }); 
                 } else {

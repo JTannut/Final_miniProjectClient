@@ -1,30 +1,36 @@
 const bcrypt = require('bcrypt')
 
-let users = {
-    users: [
-        { id: 1, username: 'warodom', password: '$2b$10$0AsMSQaUB0AlLnKzgeUOfOE.hWUodtuR4NOU954XLVy2gy3lBWsdO', email: 'wwarodom@gmail.com' },
-        { id: 2, username: 'john', password: '$2b$10$1Bu4tImM/Ms9rtU.8/n/COWpzUAGFB6YlsO5xZqFih1JUxafyFFXa', email: 'john@gmail.com' },
+let admin = {
+    admin: [
+        { id: 1, username: 'Tannut', password: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiI2MTM1NTEyMDE2IiwiZW1haWwiOiI2MTM1NTEyMDE2IiwiaWF0IjoxNjE4NDgxODYxLCJleHAiOjE2MTkwODY2NjF9.9kj15K1xSk9A62kZOdNPqIppYv8zgCika_bn5yxKHO8', email: 's6135512016@phuket.psu.ac.th' },
+        
+    ]
+}
+let product = {
+    product: [
+        { id: 1, name: "Thai Tea", cost:"35"}
     ]
 }
 
 const SECRET = 'your_jwt_secret'
 const NOT_FOUND = -1
 
-exports.users = users 
+exports.admin = admin 
+exports.product = product
 exports.SECRET = SECRET
 exports.NOT_FOUND = NOT_FOUND
 
-exports.setUsers = function(_users) { 
-  users = _users;
+exports.setadmin = function(_admin) { 
+  admin = _admin;
 }
 
 // === validate username/password ===
 exports.isValidUser = async (username, password) => { 
-    const index = users.users.findIndex(item => item.username === username) 
-    return await bcrypt.compare(password, users.users[index].password)
+    const index = admin.admin.findIndex(item => item.username === username) 
+    return await bcrypt.compare(password, admin.admin[index].password)
 }
 
 // return -1 if user is not existing
 exports.checkExistingUser = (username) => {
-    return users.users.findIndex(item => item.username === username)
+    return admin.admin.findIndex(item => item.username === username)
 }

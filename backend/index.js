@@ -9,7 +9,7 @@ const express = require('express'),
 const bcrypt = require('bcrypt')
 
 const db = require('./database.js')
-let users = db.users
+let admin = db.admin
 let bodyParser = require('body-parser');
 require('./passport.js')
 
@@ -23,50 +23,47 @@ router.use(express.json())
 router.use(express.urlencoded({ extended: false }))
 
 
-let students = {
+let product = {
     list: [
-        {id: 1, fname: "Ja",surname: "Mo",major: "CoE", GPA: 2.2},
-        {id: 2, fname: "PUNTANUN",surname: "MoJAN",major: "CoE", GPA: 2.5}
+        {id: 1, name: "Thai Tea",cost: "35"},
+        {id: 2, name: "Green Tea",cost: "40"}
     ]
 }
-///////student/////
-router.route('/students')
-    .get((req, res) => res.json(students))
+///////product/////
+router.route('/product')
+    .get((req, res) => res.json(product))
     .post((req, res) => {
-        let id = (students.list.length)?students.list[students.list.length-1].id+1:1
-        let fname = req.body.fname
-        let surname = req.body.surname
-        let major = req.body.major
-        let GPA = req.body.GPA
+        let id = (product.list.length)?product.list[product.list.length-1].id+1:1
+        let name = req.body.name
+        let cost = req.body.cost
 
-        students = { list: [ ...students.list, {id, fname, surname, major, GPA}] }
-        res.json(students)
+
+        product = { list: [ ...product.list, {id, name, cost}] }
+        res.json(product)
 
     })
 
-    router.route('/students/:std_id')
+    router.route('/product/:pd_id')
     
     .get((req, res) => {
-        let ID = students.list.findIndex( item => (item.id === +req.params.std_id))
+        let ID = product.list.findIndex( item => (item.id === +req.params.pd_id))
         if(ID >= 0)
         {
-           res.json(students.list[ID])
+           res.json(product.list[ID])
         }
         else
            res.json({status: "Fail, get not found!"})
     })
     .put((req, res) => {
 
-        let ID = students.list.findIndex( item => ( item.id === +req.params.std_id))
+        let ID = product.list.findIndex( item => ( item.id === +req.params.pd_id))
     
         if(ID >= 0)
         {
 
-            students.list[ID].fname = req.body.fname
-            students.list[ID].surname = req.body.surname
-            students.list[ID].major = req.body.major
-            students.list[ID].GPA = req.body.GPA
-            res.json(students)
+            product.list[ID].name = req.body.name
+            product.list[ID].cost = req.body.cost
+            res.json(product)
             
         }
         else
@@ -78,13 +75,13 @@ router.route('/students')
     }) 
     .delete((req, res) => {
 
-        let ID = students.list.findIndex( item => ( item.id === +req.params.std_id))
+        let ID = product.list.findIndex( item => ( item.id === +req.params.pd_id))
 
         
         if(ID >= 0)
         {
-            students.list = students.list.filter( item => item.id !== +req.params.std_id )
-            res.json(students)
+            product.list = product.list.filter( item => item.id !== +req.params.pd_id )
+            res.json(product)
             
         }
         else
@@ -164,16 +161,16 @@ router.post('/register',
             if (db.checkExistingUser(username) !== db.NOT_FOUND)
                 return res.json({ message: "Duplicated user" })
 
-            let id = (users.users.length) ? users.users[users.users.length - 1].id + 1 : 1
+            let id = (admin.admin.length) ? admin.admin[admin.admin.length - 1].id + 1 : 1
             hash = await bcrypt.hash(password, SALT_ROUND)
-            users.users.push({ id, username, password: hash, email })
+            admin.admin.push({ id, username, password: hash, email })
             res.status(200).json({ message: "Register success" })
         } catch {
             res.status(422).json({ message: "Cannot register" })
         }
     })
 
-router.get('/alluser', (req,res) => res.json(db.users.users))
+router.get('/alluser', (req,res) => res.json(db.admin.admin))
 
 router.get('/', (req, res, next) => {
     res.send('Respond without authentication');

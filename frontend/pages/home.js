@@ -4,8 +4,6 @@ import Navbar from '../components/navbar'
 import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import axios from 'axios'
-import withAuth from '../components/withAuth'
-import config from '../config/config'
 import useSWR, { mutate } from 'swr'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -102,7 +100,7 @@ const product = ({ token }) => {
             <Head>
                 <title>เครื่องดื่ม</title>
             </Head><div className={styles.backghome}>
-                
+                <Navbar />
                 <div className={styles.mainhome} align="center" >
                 <p>{''}</p>
                 <Link href="/"><button className={styles.submitadmin}>BACK</button></Link>
@@ -130,9 +128,7 @@ const product = ({ token }) => {
                    
                 </div>
             </div>
-            <p>
-                <Navbar />
-            </p>
+      
             
             </div>
             

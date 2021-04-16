@@ -101,6 +101,7 @@ const product = ({ token }) => {
     return (
         <Layout>
             <div className={styles.backg}>
+                <Navbar />
             <div className={styles.main} align="center" >
                 
                 <Link href="/admin"><button className={styles.submitmycart}>ADMIN</button></Link>
@@ -122,7 +123,7 @@ const product = ({ token }) => {
             
             </div>
             </div>
-                <Navbar />
+                
            
             
             

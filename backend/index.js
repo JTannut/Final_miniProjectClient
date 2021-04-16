@@ -26,7 +26,12 @@ router.use(express.urlencoded({ extended: false }))
 let product = {
     list: [
         {id: 1, name: "Thai Tea",cost: "35"},
-        {id: 2, name: "Green Tea",cost: "40"}
+        {id: 2, name: "Green Tea",cost: "40"},
+        {id: 3, name: "Coco",cost: "45"},
+        {id: 4, name: "Mocca",cost: "45"},
+        {id: 5, name: "Lemon Soda",cost: "45"},
+        {id: 6, name: "Black Wanila",cost: "45"}
+
     ]
 }
 ///////product/////

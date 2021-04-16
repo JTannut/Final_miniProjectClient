@@ -32,7 +32,7 @@ export default function Login({ token }) {
             setStatus(JSON.stringify(e.response).substring(0, 80) + "...")
         }
     }
-
+      
     const loginForm = () => (
         <div className={styles.formloging}>
             <div>
@@ -64,6 +64,7 @@ export default function Login({ token }) {
             <Head>
              <title>Login</title>
             </Head><div className={styles.backg}>
+            <Navbar />
                 <div className={styles.main}>
                 <h1 className={styles.sign} align="center">SIGN IN</h1>
                 <p align="center">
@@ -84,10 +85,10 @@ export default function Login({ token }) {
                 <button className={styles.submit} onClick={login}>Login</button>
                 <Link href="/register"><button className={styles.submit}>Register</button></Link>
                 <Link href="/home"><button className={styles.submit}>Admin Page</button></Link>
-                <Link href="/"><button className={styles.submitback}>BACK TO MARKET</button></Link>
+                <Link href="/"><button className={styles.submitback}>BACK TO SHOP</button></Link>
                 </div>
                  </div>
-                 <Navbar />
+        
             </div>
             
         </Layout>

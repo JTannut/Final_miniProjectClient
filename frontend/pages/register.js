@@ -80,6 +80,7 @@ export default function Register({ token }) {
             <Head>
                 <title>Register</title>
             </Head><div className={styles.backg}>
+                <Navbar />
                  <div className={styles.mainregis}>
                 <h1 className={styles.sign} align="center">Register</h1>
                 <div align="center" ><b>Token:</b> {token.substring(0, 15)}...
@@ -104,7 +105,7 @@ export default function Register({ token }) {
                 </div>
                 
             </div>
-            <Navbar />
+            
             </div>
         </Layout>
     )

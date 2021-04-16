@@ -50,7 +50,6 @@ const product = ({ token }) => {
                 </div>
                <p>{''}</p>
                  </div>
-
                  <button className={styles.submit} onClick={() => getproduct(product.id)}>Add to cart</button>
                 </div>)
 
@@ -68,7 +67,7 @@ const product = ({ token }) => {
             
             name: product.data.name,
             cost: product.data.cost,
-            count: count++,
+            
         });
     }
 
@@ -102,13 +101,15 @@ const product = ({ token }) => {
         <Layout>
             
             <Head>
+                
                 <title>เครื่องดื่ม</title>
             </Head><div className={styles.backghome}>
-                
+                 <Navbar />
                 <div className={styles.mainhome} align="center" >
                 <p>{''}</p>
                 <Link href="/admin"><button className={styles.submitadmin2}>ADMIN</button></Link>
                 <Link href="/mycart"><button className={styles.submitadmin}>MY CART</button></Link>
+               
                 <h1 className={styles.sign2}>เครื่องดื่ม</h1>
                 <p align="center">
                     <div >
@@ -123,10 +124,7 @@ const product = ({ token }) => {
                    
                 </div>
             </div>
-            <p>
-                <Navbar />
-            </p>
-            
+           
             </div>
             
         </Layout>

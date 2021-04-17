@@ -34,6 +34,12 @@ let product = {
 
     ]
 }
+
+let cart = { 
+    list: [
+        {id: 0, name: " ",cost: " " },
+    ]
+}
 ///////product/////
 router.route('/product')
     .get((req, res) => res.json(product))
@@ -47,9 +53,7 @@ router.route('/product')
         res.json(product)
 
     })
-
     router.route('/product/:pd_id')
-    
     .get((req, res) => {
         let ID = product.list.findIndex( item => (item.id === +req.params.pd_id))
         if(ID >= 0)
@@ -92,12 +96,70 @@ router.route('/product')
         else
         {
             
-            res.json({status: "Fail, Student not found!"})
+            res.json({status: "Fail, Product not found!"})
         }
             
 
     })
 
+
+////////////////cart//////////
+router.route('/cart')
+    .get((req, res) => res.json(cart))
+    .post((req, res) => {
+        let id = (cart.list.length)?cart.list[cart.list.length-1].id+1:1
+        let name = req.body.name
+        let cost = req.body.cost
+        cart = { list: [ ...cart.list, {id, name, cost}] }
+        res.json(cart)
+
+    })
+   
+    router.route('/cart/:ct_id')
+    .get((req, res) => {
+        let ID = cart.list.findIndex( item => (item.id === +req.params.ct_id))
+        if(ID >= 0)
+        {
+           res.json(cart.list[ID])
+        }
+        else
+           res.json({status: "Fail, get not found!"})
+    })
+    .put((req, res) => {
+
+        let ID = cart.list.findIndex( item => ( item.id === +req.params.ct_id))
+    
+        if(ID >= 0)
+        {
+
+            cart.list[ID].name = req.body.name
+            cart.list[ID].cost = req.body.cost
+            res.json(cart)
+            
+        }
+        else
+        {
+            res.json({status: "Fail, Product in Cart not found!"})
+        }
+
+           
+    }) 
+    .delete((req, res) => {
+        let ID = cart.list.findIndex( item => ( item.id === +req.params.ct_id))
+        if(ID >= 0)
+        {
+            cart.list = cart.list.filter( item => item.id !== +req.params.ct_id )
+            res.json(cart)
+            
+        }
+        else
+        {
+            
+            res.json({status: "Fail, cart not found!"})
+        }
+            
+
+    })
 
 
 router.post('/login', (req, res, next) => {
@@ -126,14 +188,7 @@ router.post('/login', (req, res, next) => {
     })(req, res, next)
 })
 
-///////////////////
-router.get('/foo',
-    passport.authenticate('jwt', { session: false }),
-    (req, res, next) => {
-            return res.json({ message: 'Foo' })
-    });
 
-/////////////////
 router.get('/logout', (req, res) => { 
     res.setHeader(
         "Set-Cookie",

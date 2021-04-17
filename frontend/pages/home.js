@@ -78,7 +78,6 @@ const product = ({ token }) => {
         mutate(URL)
         
     }
-
     const deleteproduct = async (id) => {
 
         let product = await axios.delete(`${URL}/${id}`,{

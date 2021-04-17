@@ -11,10 +11,15 @@ let product = {
         { id: 1, name: "Thai Tea", cost:"35"}
     ]
 }
+let cart= {
+    cart: [
+        {id: 1, name: "Thai Tea", cost:"35"}
+    ]
+}
 
 const SECRET = 'your_jwt_secret'
 const NOT_FOUND = -1
-
+exports.cart = cart
 exports.admin = admin 
 exports.product = product
 exports.SECRET = SECRET

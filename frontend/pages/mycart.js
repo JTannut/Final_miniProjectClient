@@ -9,49 +9,48 @@ import config from '../config/config'
 import useSWR, { mutate } from 'swr'
 import Image from 'next/image'
 import Link from 'next/link'
-const URL = `http://localhost/api/product`
+const URL = `http://localhost/api/cart`
+const URL2 = `http://localhost/api/product`
 const fetcher = (URL) => axios.get(URL).then(res => res.data)
 
 
-const product = ({ token }) => {
-
+const cart = ({ token }) => {
     const [admin, setAdmin] = useState({})
-    const [product, setProduct] = useState('')
+    const [cart, setCart] = useState('')
     const [name, setName] = useState('')
     const [cost, setCost] = useState('')
+
 
    
     const { data, error } = useSWR(URL, fetcher)
     if (!data) return <div>Loading...</div>
     console.log('Home', data);
 
-    const printproduct = (product) => {
-        console.log('product: ', product);
-        if (product && product.length)
-            return (product.map((product, index) =>
-            
+    const printcart = (cart) => {
+        console.log('cart: ', cart);
+        if (cart && cart.length)
+            return (cart.map((cart, index) =>
             (
-            <div className={styles.list}>
+            <div >
+                <div>
+                </div>
                 <div key={index}>
                     <div className={styles.image}>
-                        
-                        <Image 
-                className={styles.image}
-                        src="/1.png"
-                        alt=""
-                        width={200}
-                         height={200}
-                         />
                     </div>
-                <div className={styles.signcost}>
-                     <div>{(product) ? product.name : ''} {''}
-                          ราคา {''}
-                         {(product) ? product.cost : '-'} </div>
+                <div >
+                     <li disabled={index === " "}className={styles.signcost2}>
+                         {(cart) ? cart.name : ''} {''}
+                         {''}  ราคา {''}
+                         {(cart) ? cart.cost : '-'}
+                        
+                         <button className={styles.submitcart} onClick={() => deletecart(cart.id)}>Delete</button> 
+                          </li>
+
+                 
                 </div>
-               <p>{''}</p>
                  </div>
 
-                 <button className={styles.submit} onClick={() => getproduct(product.id)}>Add to cart</button>
+                 
                 </div>)
 
             ))
@@ -60,78 +59,37 @@ const product = ({ token }) => {
             (<h2>No product</h2>)
         }
     }
-    const getproduct = async (id) => {
-        
-        let product = await axios.get(`${URL}/${id}`);
-        
-        setProduct({
-            
-            name: product.data.name,
-            cost: product.data.cost,
-            
-        });
-    }
+    const deletecart = async (id) => {
 
-    const addproduct = async (name, cost) => {
-
-        let product = await axios.post(URL, { name, cost },{
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        //setproduct(product.data)
-        mutate(URL)
-        
-    }
-
-    const deleteproduct = async (id) => {
-
-        let product = await axios.delete(`${URL}/${id}`,{
+        let cart = await axios.delete(`${URL}/${id}`,{
             headers: { Authorization: `Bearer ${token}` }
         })
         //setproduct(product.data)
         mutate(URL)
     }
-
-    const updateproduct = async (id) => {
-
-        let product = await axios.put(`${URL}/${id}`, { name, cost})
-        //setproduct(product.data)
-        mutate(URL)
-    }
-
     return (
         <Layout>
             <div className={styles.backg}>
                 <Navbar />
             <div className={styles.main} align="center" >
                 
-                <Link href="/admin"><button className={styles.submitmycart}>ADMIN</button></Link>
+                <Link href="/"><button className={styles.submitmycart}>BACK</button></Link>
                 
-                <h1 className={styles.sign}>เครื่องดื่ม</h1>
-                
-                
+                <h1 className={styles.sign}>MY  CART</h1>
+
                 <p align="center">
                     <div >
-                        
-                        {product.name} {product.cost}
                     </div>
-                    
+                    {printcart(data.list)}
                 </p>
-                
-               
-               
-                   
-            
             </div>
             </div>
-                
-           
-            
-            
+ 
         </Layout>
     )
 }
 
-export default product
+export default cart
 
 export function getServerSideProps({ req, res }) {
     return { props: { token: req.cookies.token || "" } };

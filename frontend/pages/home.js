@@ -104,7 +104,7 @@ const product = ({ token }) => {
                 <p>{''}</p>
                 <Link href="/"><button className={styles.submitadmin}>BACK</button></Link>
                 <div className={styles.formlogin}>
-                     <div className={styles.unhome}>
+                     <div>
                      <h1 className={styles.signhome}> ADD Beverage</h1>
                     ชื่อสินค้า : <input disabled={token === ""}type="text" onChange={(e) => setName(e.target.value)}></input>
                     ราคา : <input disabled={token === ""}type="text" onChange={(e) => setCost(e.target.value)}></input>

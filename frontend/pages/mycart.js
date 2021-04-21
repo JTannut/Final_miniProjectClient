@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 import axios from 'axios'
 import withAuth from '../components/withAuth'
 import config from '../config/config'
+import React from 'react'
 import useSWR, { mutate } from 'swr'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -38,7 +39,7 @@ const cart = ({ token }) => {
                     <div className={styles.image}>
                     </div>
                 <div >
-                     <li disabled={index === " "}className={styles.signcost2}>
+                     <li className={styles.signcost2}>
                          {(cart) ? cart.name : ''} {''}
                          {''}  ราคา {''}
                          {(cart) ? cart.cost : '-'}
@@ -67,6 +68,7 @@ const cart = ({ token }) => {
         //setproduct(product.data)
         mutate(URL)
     }
+
     return (
         <Layout>
             <div className={styles.backg}>
@@ -80,9 +82,14 @@ const cart = ({ token }) => {
                 <p align="center">
                     <div >
                     </div>
-                    {printcart(data.list)}
+                    <div>
+                        {printcart(data.list)}
+                    </div>
+                    <Link href="/sucess"><button className={styles.submitcart}> ชำระเงิน</button></Link> 
                 </p>
+               
             </div>
+            
             </div>
  
         </Layout>
